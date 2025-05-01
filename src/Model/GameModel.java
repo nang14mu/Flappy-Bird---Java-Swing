@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class GameModel implements GameDefaultSize{
     private final int WIDTH = GameDefaultSize.WIDTH;
@@ -9,19 +10,19 @@ public class GameModel implements GameDefaultSize{
     private Bird bird;
     private LinkedList<Pipe> linkedListPipe;
     private Ground ground;
-    private int score;
     private boolean overGame;
 
     public GameModel(){
         bird = new Bird(HEIGHT/2);
-        ground = new Ground(0,0,WIDTH, HEIGHT/8);
-        score = 0;
+        ground = new Ground(0,0,800, 50);
         overGame = false;
 
         linkedListPipe = new LinkedList<>();
-        linkedListPipe.add(new Pipe(400));
+        Pipe p = new Pipe(400);
+        linkedListPipe.add(p);
         for(int i=1; i<=8; i++){
-            linkedListPipe.add(new Pipe(linkedListPipe.getLast().getxPipe()));
+            Pipe p1 = new Pipe(linkedListPipe.getLast().getxPipe());
+            linkedListPipe.add(p1);
         }
     }
 
@@ -53,14 +54,6 @@ public class GameModel implements GameDefaultSize{
         if(!overGame){
             bird.flap();
         }
-    }
-
-    public void increaseScore(){
-        score++;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public boolean isOverGame(){

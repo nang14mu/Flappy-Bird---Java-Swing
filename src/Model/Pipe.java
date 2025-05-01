@@ -13,15 +13,18 @@ public class Pipe implements ObjGameSymmetric{
     private int speed = 3;
     private final int  gap = 100;//khoảng cách cột trên và dưới
     private boolean isOffScreen = true;
+    private boolean isPassed = false;
     private Random random;
 
     public Pipe(int xOfFrontPipe){
         random = new Random();
         this.xPipe = xOfFrontPipe + 150;
-        this.yTopPipe = 70;
+        //this.yTopPipe = 70;
+        this.yTopPipe = 50;
         this.topHeight = random.nextInt(50,300);
         this.yUnderPipe = yTopPipe + topHeight + gap;
-        this.underHeight = 500 - gap - yTopPipe;
+        //this.underHeight = 500 - gap - yTopPipe;
+        this.underHeight = 500 - gap - topHeight;
     }
 
     public void move(){

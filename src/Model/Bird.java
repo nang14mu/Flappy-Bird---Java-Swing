@@ -5,9 +5,9 @@ import java.awt.*;
 public class Bird implements ObjGame{
     private final int xBird = 200;
     private int yBird;
-    private int birdVelocity;
     private int widthBird = 30;
     private int heightBird = 30;
+    private float birdVelocity;
 
     public Bird(int y){
         this.yBird = y;
@@ -33,8 +33,9 @@ public class Bird implements ObjGame{
         }
         return false;
     }
+
     public void flap(){
-            birdVelocity = -10;
+        birdVelocity = -8;
     }
 
     public void update(){

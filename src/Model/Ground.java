@@ -13,7 +13,7 @@ public class Ground implements ObjGameSymmetric{
     public Ground(int x, int y, int width, int height){
         this.x=x;
         this.ytop =y;
-        this.yunder = ytop + gap;
+        this.yunder = ytop + gap + height;
         this.width=width;
         this.height=height;
     }
@@ -54,6 +54,6 @@ public class Ground implements ObjGameSymmetric{
 
     @Override
     public Rectangle getBoundUnder() {
-        return new Rectangle(x, ytop +gap,width,height);
+        return new Rectangle(x, yunder,width,height);
     }
 }
