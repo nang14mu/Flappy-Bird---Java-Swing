@@ -4,6 +4,7 @@ import Model.GameDefaultSize;
 import Model.GameModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PlappyBirdView extends JFrame implements GameDefaultSize {
     private GameView gameView;
@@ -12,15 +13,17 @@ public class PlappyBirdView extends JFrame implements GameDefaultSize {
 
     public PlappyBirdView(GameModel gameModel){
         this.setTitle("FLAPPY BIRD");
-        this.setSize(800,620);
-        this.setLayout(null);
+        this.setSize(800,630);
+        this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+
 
         this.gameModel = gameModel;
         gameView = new GameView(this.gameModel);
-        gameView.setBounds(0,20,800,600);
-        this.add(gameView);
+
+        this.add(gameView,BorderLayout.CENTER);
+
+        this.setVisible(true);
     }
 }

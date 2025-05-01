@@ -3,11 +3,11 @@ package Model;
 import java.awt.*;
 import java.util.Random;
 
-public class Pipe implements ObjGameSymmetric{
+public class Pipe implements ObjGameSymmetric,GameDefaultSize{
     private int xPipe;
     private int yTopPipe;
     private int yUnderPipe;
-    private final int widthPipe = 50;
+    private final int widthPipe = GameDefaultSize.widhPipe;
     private int topHeight;
     private int underHeight;
     private int speed = 3;
@@ -32,11 +32,16 @@ public class Pipe implements ObjGameSymmetric{
     }
 
     //kiểm tra cột ra ngoài
-    public boolean setOffScreen(){
-        if(this.xPipe < 0){
-            return false;
-        }
-        return true;
+    public boolean isOnScreen() {
+        return this.xPipe + widthPipe >= 0;
+    }
+
+    public boolean getPassed(){
+        return isPassed;
+    }
+
+    public void setIsPassed(boolean passed){
+        isPassed = passed;
     }
 
     public int getxPipe() {

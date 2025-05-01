@@ -2,7 +2,6 @@ package Model;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class GameModel implements GameDefaultSize{
     private final int WIDTH = GameDefaultSize.WIDTH;
@@ -11,11 +10,14 @@ public class GameModel implements GameDefaultSize{
     private LinkedList<Pipe> linkedListPipe;
     private Ground ground;
     private boolean overGame;
+    private int score;
+    private boolean gameStart;
 
     public GameModel(){
         bird = new Bird(HEIGHT/2);
         ground = new Ground(0,0,800, 50);
         overGame = false;
+        score = 0;
 
         linkedListPipe = new LinkedList<>();
         Pipe p = new Pipe(400);
@@ -24,16 +26,20 @@ public class GameModel implements GameDefaultSize{
             Pipe p1 = new Pipe(linkedListPipe.getLast().getxPipe());
             linkedListPipe.add(p1);
         }
+        gameStart = false;
     }
 
     public void update(){
+        if(!gameStart){
+            return;
+        }
         if(!overGame){
             bird.update();
             Iterator<Pipe> iterator = linkedListPipe.iterator();
             while (iterator.hasNext()) {
                 Pipe pipe = iterator.next();
-                if(pipe.setOffScreen()){
-                    pipe.move();
+                if(pipe.isOnScreen()){
+                    pipe.update();
                 }
                 else {
                     iterator.remove(); // An toàn, không gây lỗi
@@ -46,11 +52,23 @@ public class GameModel implements GameDefaultSize{
                 if(bird.checkCollistion(pipe)){
                     overGame = true;
                 }
+                if (bird.isPassedPipe(pipe)) {
+                    score++;
+                    pipe.setIsPassed(true);
+                }
+            }
+            if (linkedListPipe.size() < 9) {
+                Pipe lastPipe = linkedListPipe.getLast();
+                Pipe newPipe = new Pipe(lastPipe.getxPipe());
+                linkedListPipe.add(newPipe);
             }
         }
     }
 
     public void flap(){
+        if(!gameStart){
+            gameStart = true;
+        }
         if(!overGame){
             bird.flap();
         }
@@ -70,5 +88,13 @@ public class GameModel implements GameDefaultSize{
 
     public LinkedList<Pipe> getLinkedListPipe() {
         return linkedListPipe;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public boolean isGameStart() {
+        return gameStart;
     }
 }

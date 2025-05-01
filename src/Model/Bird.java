@@ -2,13 +2,13 @@ package Model;
 
 import java.awt.*;
 
-public class Bird implements ObjGame{
+public class Bird implements ObjGame,GameDefaultSize{
     private final int xBird = 200;
     private int yBird;
-    private int widthBird = 30;
-    private int heightBird = 30;
+    private int widthBird = GameDefaultSize.widthBird;
+    private int heightBird = GameDefaultSize.heightBird;
     private float birdVelocity;
-
+    private float maxFallSpeed = 10.0f;
     public Bird(int y){
         this.yBird = y;
         birdVelocity = 0;
@@ -34,12 +34,21 @@ public class Bird implements ObjGame{
         return false;
     }
 
+    public boolean isPassedPipe(Pipe pipe){
+        return !pipe.getPassed() && (this.xBird > pipe.getxPipe()+pipe.getWidthPipe());
+    }
+
     public void flap(){
         birdVelocity = -8;
     }
 
     public void update(){
         birdVelocity += 1;
+
+        // Giới hạn tốc độ rơi tối đa
+        if (birdVelocity > maxFallSpeed) {
+            birdVelocity = maxFallSpeed;
+        }
         yBird += birdVelocity;
     }
 
