@@ -7,7 +7,7 @@ public class Bird implements ObjGame,GameDefaultSize{
     private int yBird;
     private int widthBird = GameDefaultSize.widthBird;
     private int heightBird = GameDefaultSize.heightBird;
-    private float birdVelocity;
+    private float birdVelocity; // vận tốc
     private float maxFallSpeed = 10.0f;
     public Bird(int y){
         this.yBird = y;
@@ -15,7 +15,7 @@ public class Bird implements ObjGame,GameDefaultSize{
     }
 
     //kiểm tra có va chạm trả về true
-    public boolean checkCollistion(Pipe pipe){
+    public boolean checkCollision(Pipe pipe){
         Rectangle birdBound = this.getBound();
         Rectangle topPipeBound = pipe.getBoundTop();
         Rectangle underPipeBound = pipe.getBoundUnder();
@@ -24,7 +24,7 @@ public class Bird implements ObjGame,GameDefaultSize{
         }
         return false;
     }
-    public boolean checkCollistion(Ground ground){
+    public boolean checkCollision(Ground ground){
         Rectangle birdBound = this.getBound();
         Rectangle topGroundBound = ground.getBoundTop();
         Rectangle underGroundBound = ground.getBoundUnder();

@@ -13,10 +13,7 @@ public class GameView extends JPanel {
     private Image imageColumnTop;
     private Image imageColumnUnder;
     private Image imageGround;
-    private JLabel jlabelScore;
 
-    private Font scoreFont;
-    private Font bigScoreFont;
 
     public GameView(GameModel model){
         this.model = model;

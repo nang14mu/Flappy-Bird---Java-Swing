@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class PlappyBirdView extends JFrame implements GameDefaultSize {
     private GameView gameView;
-    private MenuView menuView;
     private GameModel gameModel;
 
     public PlappyBirdView(GameModel gameModel){

@@ -1,7 +1,6 @@
 package Cotroller;
 
 import Model.GameModel;
-import View.MenuView;
 import View.PlappyBirdView;
 
 import javax.swing.*;

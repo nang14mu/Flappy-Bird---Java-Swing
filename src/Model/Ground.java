@@ -11,11 +11,11 @@ public class Ground implements ObjGameSymmetric{
     private int gap = 500;
 
     public Ground(int x, int y, int width, int height){
-        this.x=x;
-        this.ytop =y;
+        this.x = x;
+        this.ytop = y;
         this.yunder = ytop + gap + height;
-        this.width=width;
-        this.height=height;
+        this.width = width;
+        this.height = height;
     }
 
     public int getX() {
@@ -26,6 +26,10 @@ public class Ground implements ObjGameSymmetric{
         return ytop;
     }
 
+    public int getYunder() {
+        return yunder;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -34,17 +38,9 @@ public class Ground implements ObjGameSymmetric{
         return height;
     }
 
-    public int getGap(){
-        return this.gap;
-    }
-
-    public int getYunder() {
-        return yunder;
-    }
-
     @Override
     public void update() {
-
+        return;
     }
 
     @Override

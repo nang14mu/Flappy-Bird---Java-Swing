@@ -19,15 +19,13 @@ public class Pipe implements ObjGameSymmetric,GameDefaultSize{
     public Pipe(int xOfFrontPipe){
         random = new Random();
         this.xPipe = xOfFrontPipe + 150;
-        //this.yTopPipe = 70;
         this.yTopPipe = 50;
         this.topHeight = random.nextInt(50,300);
         this.yUnderPipe = yTopPipe + topHeight + gap;
-        //this.underHeight = 500 - gap - yTopPipe;
         this.underHeight = 500 - gap - topHeight;
     }
 
-    public void move(){
+    private void move(){
         xPipe -=speed;
     }
 
@@ -38,10 +36,6 @@ public class Pipe implements ObjGameSymmetric,GameDefaultSize{
 
     public boolean getPassed(){
         return isPassed;
-    }
-
-    public void setIsPassed(boolean passed){
-        isPassed = passed;
     }
 
     public int getxPipe() {
@@ -66,6 +60,10 @@ public class Pipe implements ObjGameSymmetric,GameDefaultSize{
 
     public int getUnderHeight() {
         return underHeight;
+    }
+
+    public void setIsPassed(boolean passed){
+        isPassed = passed;
     }
 
     @Override

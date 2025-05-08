@@ -15,12 +15,12 @@ public class GameModel implements GameDefaultSize{
 
     public GameModel(){
         bird = new Bird(HEIGHT/2);
-        ground = new Ground(0,0,800, 50);
+        ground = new Ground(0,0,WIDTH, 50);
         overGame = false;
         score = 0;
 
         linkedListPipe = new LinkedList<>();
-        Pipe p = new Pipe(400);
+        Pipe p = new Pipe(WIDTH/2);
         linkedListPipe.add(p);
         for(int i=1; i<=8; i++){
             Pipe p1 = new Pipe(linkedListPipe.getLast().getxPipe());
@@ -29,39 +29,58 @@ public class GameModel implements GameDefaultSize{
         gameStart = false;
     }
 
-    public void update(){
-        if(!gameStart){
+    public void update() {
+        if (!gameStart) return;
+
+        if (!overGame) {
+            bird.update();
+            updatePipes();
+            checkCollisions();
+            updateScore();
+            generateNewPipe();
+        }
+    }
+
+    private void updatePipes() {
+        Iterator<Pipe> iterator = linkedListPipe.iterator();
+        while (iterator.hasNext()) {
+            Pipe pipe = iterator.next();
+            if (pipe.isOnScreen()) {
+                pipe.update();
+            } else {
+                iterator.remove();
+            }
+        }
+    }
+
+    private void checkCollisions() {
+        if (bird.checkCollision(ground)) {
+            overGame = true;
             return;
         }
-        if(!overGame){
-            bird.update();
-            Iterator<Pipe> iterator = linkedListPipe.iterator();
-            while (iterator.hasNext()) {
-                Pipe pipe = iterator.next();
-                if(pipe.isOnScreen()){
-                    pipe.update();
-                }
-                else {
-                    iterator.remove(); // An toàn, không gây lỗi
-                }
-            }
-            if(bird.checkCollistion(ground) ){
+
+        for (Pipe pipe : linkedListPipe) {
+            if (bird.checkCollision(pipe)) {
                 overGame = true;
+                break;
             }
-            for(Pipe pipe : linkedListPipe){
-                if(bird.checkCollistion(pipe)){
-                    overGame = true;
-                }
-                if (bird.isPassedPipe(pipe)) {
-                    score++;
-                    pipe.setIsPassed(true);
-                }
+        }
+    }
+
+    private void updateScore() {
+        for (Pipe pipe : linkedListPipe) {
+            if (!pipe.getPassed() && bird.isPassedPipe(pipe)) {
+                score++;
+                pipe.setIsPassed(true);
             }
-            if (linkedListPipe.size() < 9) {
-                Pipe lastPipe = linkedListPipe.getLast();
-                Pipe newPipe = new Pipe(lastPipe.getxPipe());
-                linkedListPipe.add(newPipe);
-            }
+        }
+    }
+
+    private void generateNewPipe() {
+        if (linkedListPipe.size() < 9) {
+            Pipe lastPipe = linkedListPipe.getLast();
+            Pipe newPipe = new Pipe(lastPipe.getxPipe());
+            linkedListPipe.add(newPipe);
         }
     }
 
